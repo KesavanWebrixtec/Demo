@@ -1,0 +1,151 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+h1 {
+  text-align: center;
+}
+body {
+  background-color:grey                                                                          ;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table thead {
+  background-color: #ee2828;
+}
+.table thead tr th {
+  font-size: 14px;
+  letter-spacing: 0.35px;
+  color: #fff;
+  padding: 12px;
+  vertical-align: top;
+  border: 1px solid #dee2e685;
+}
+.table tbody tr td {
+  font-size: 14px;
+  letter-spacing: 0.35px;
+  color: #f1f1f1;
+  background-color: #3c3f44;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #dee2e685;
+}
+.table tbody tr td button {
+    width:130px;
+    line-height: 30px;
+  text-decoration: none;
+  display: inline-block;
+  color: white;
+  background-color: #ff1046;
+  border:none;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: rgb(51, 51, 51);
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+.adduser{
+  float: left;
+background: none;
+  text-align: center;
+ border: none;
+  text-decoration: none;
+  color: white;
+  padding: 2px 0;
+  
+}
+#demo , #demos{
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.87);
+  z-index: 2;
+  cursor: pointer;
+  padding-top: 10%;
+}
+input{
+  padding: 10px;
+}
+
+
+
+@media (max-width:768px){
+    .table thead{
+        display:none
+    }
+    .table,.table tbody, .table tr , .table td{
+        display:block;
+        width:100%;
+    }
+    .table tr{
+        margin-bottom: 15px;
+    }
+}
+/* card css */
+hr{
+  margin: 10px 0px;
+  
+}
+.review {
+  background: #ffff;
+  width: 15%;
+  height: 208px;
+  margin: 2%;
+  text-align:left !important ;
+  box-shadow: 0 8px 16px 0 rgb(0 0 0);
+    transition: 0.3s;
+    border-radius: 3px;
+}
+.heading{
+  text-align:left !important ;
+}
+.description{
+  text-align:left !important ;
+  margin-top: 8px;
+}
+.card{
+  margin: 10px;
+  padding: 6px;
+  text-align:left !important ;
+}
+.stars{
+  margin-top: 10px;
+  text-align:left !important ;
+}
+#rew-contain{
+  display: flex;
+  justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+.review:hover {
+  box-shadow:0 4px 8px 0 rgb(231 18 18);
+}
+
+.checked {
+  color: orange;
+}
+

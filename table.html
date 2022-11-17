@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Table</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <h1>Users List</h1>
+    <nav class="topnav">
+        <div class="usertable1">
+            <a href="index.html">Signup</a>
+        </div>
+        <div class="usertable2">
+            <a href="login.html">loginup</a>
+        </div>
+        <div class="usertable2">
+            <a onclick="getreviews()">show review</a>
+        </div>
+        <div>
+            <a><button onclick="document.getElementById('demo').style.display='block'" class="adduser"> Add
+                    User</button> </a><br><br><br>
+
+            <form id="demo" style="display:none">
+                <input id="firstname" type="name" placeholder="First name*"><br><br>
+                <input id="lastname" type="name" placeholder="Last name*"><br><br>
+                <input id="inputs" type="email" placeholder="Email address* "><br><br>
+                <input id="pass" type="password" placeholder="set a password*"><br><br>
+
+                <button onclick="signupss()" id="addsubmit">Add to table</button>
+                <button onclick="document.getElementById('demo').style.display='none'">Close</button>
+
+
+            </form>
+
+            <form id="demos" style="display:none">
+                <input id="firstname" type="name" placeholder="First name*"><br><br>
+                <input id="lastname" type="name" placeholder="Last name*"><br><br>
+                <input id="inputs" type="email" placeholder="Email address* "><br><br>
+                <input id="pass" type="password" placeholder="set a password*"><br><br>
+                <button onclick="updatefunction() " id="updatesubmit">update</button>
+                <button onclick="document.getElementById('demos').style.display='none'">Close</button>
+
+            </form>
+        </div>
+    </nav>
+   
+
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>E-mail</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>password</th>
+                    <th class="delete">Delete</th>
+                    <th class="update">Update</th>
+                </tr>
+            </thead>
+            <tbody id="table">
+
+            </tbody>
+        </table>
+    </div>
+    
+    <hr>
+   <section id="rew-contain">
+
+   </section>
+</body>
+
+
+
+<script>
+
+   
+
+
+    // ************************** GET FUNCTION ***********************
+    var arr = [];
+    var same = 1;
+
+    function get() {
+        fetch("http://localhost:8080/get-user", {
+            method: "GET",
+
+        }).then((Response) => {
+            return Response.json()
+        }
+        )
+            .then((e) => {
+                let tabledata = "";
+                arr = [];
+                for (let index = 0; index < e.length; index++) {
+                    arr.push(e[index].id);
+
+                    tabledata += `
+     <tr>
+        <td>${e[index].id}</td>
+        <td>${e[index].email}</td>
+        <td>${e[index].firstname}</td>
+        <td>${e[index].lastname}</td>
+        <td>${e[index].password}</td>
+        <td><button onclick="myfunction(${e[index].id})">delete</button></td>
+        <td><button onclick="document.getElementById('demos').style.display='block';same=${e[index].id}">update</button></td>
+        </tr>
+    `;
+
+                };
+
+
+
+                document.getElementById("table").innerHTML = tabledata;
+
+            });
+    }
+    // **********************************DELETE*****************************
+    function myfunction(id) {
+        alert("id =" + id)
+
+        fetch(`http://localhost:8080/delete-user?id=${id}`, {
+            method: "DELETE",
+
+
+        }).then((Response) => {
+
+            return Response.text();
+
+
+        }
+        )
+            .then((f) => get());
+
+
+    }
+    get();
+
+    // *******************************add**************************
+
+
+
+    const signupss = () => {
+        var maxnumber = Math.max(...arr);
+        console.log(maxnumber);
+
+        const firstname = document.getElementById("firstname").value;
+        const lastname = document.getElementById("lastname").value;
+        const email = document.getElementById("inputs").value;
+        const password = document.getElementById("pass").value;
+        const data = { firstname: firstname, lastname, email, password, id: ++maxnumber };
+        event.preventDefault();
+        console.log(data);
+
+        fetch("http://localhost:8080/add-user", {
+            method: "POST",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        }).then((Response) =>
+
+            Response.text()
+        )
+            .then((f) => { console.log(f); alert(f); get() });
+
+        document.getElementById('demo').style.display = 'none';
+        
+
+    }
+
+    // ****************************************update*************************
+
+    const updatefunction = () => {
+        console.log(same)
+        document.getElementById('addsubmit').style.display = 'none';
+
+        const firstname = document.getElementById("firstname").value;
+        const lastname = document.getElementById("lastname").value;
+        const email = document.getElementById("inputs").value;
+        const password = document.getElementById("pass").value;
+        const data = { firstname: firstname, lastname: lastname, email: email, password: password, id: same };
+        event.preventDefault();
+        console.log(data);
+
+        fetch(`http://localhost:8080/update-user`, {
+            method: "PUT",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        }).then((Response) =>
+
+            Response.text()
+        )
+            .then((f) => { console.log(f); alert(f); get() });
+
+
+
+
+    }
+
+ // get reviews
+ 
+ function getreviews() {
+    
+    fetch("http://localhost:8080/productget-user", {
+            method: "GET",
+
+        }).then((Response) => {
+            return Response.json()
+        }
+        ).then(res=>{
+            console.log(res);
+            var tr='';
+            res.forEach(element => {
+                let star;
+                switch (element.starrating) {
+                    case "1":
+                       star= ` <span class="fa fa-star checked"></span>
+<span class="fa fa-star "></span>
+<span class="fa fa-star "></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>`
+                        break;
+                        case "2":
+                       star= ` <span class="fa fa-star checked"></span>
+<span class="fa fa-star checked "></span>
+<span class="fa fa-star "></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>`
+                        break;
+                        case "3":
+                       star= ` <span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>`
+                        break;
+                        case "4":
+                       star= ` <span class="fa fa-star checked"></span>
+<span class="fa fa-star checked "></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star"></span>`
+                        break;
+                        case "5":
+                       star= ` <span class="fa fa-star checked"></span>
+<span class="fa fa-star checked "></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>`
+                        break;
+                    default:
+                    star= ` <span class="fa fa-star "></span>
+<span class="fa fa-star "></span>
+<span class="fa fa-star "></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>`
+                        break;
+                }
+                tr+=`
+                <div class="review">
+        <div class="card">
+            <h3 class="heading">
+${element.reviews}
+            </h3>
+         <p class="description">
+            ${element.description}
+         </p>   
+       <p class="stars">${star}</p>
+        </div>
+    </div>
+                `
+            }); 
+               document.getElementById("rew-contain").innerHTML=tr;
+        }
+    
+        )
+
+  }
+//   getreviews();
+
+
+
+</script>
+</table>
+
+</html>

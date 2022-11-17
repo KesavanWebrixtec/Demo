@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Register page</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+
+</head>
+
+<body>
+    <form onsubmit="signup()">
+        <button class="Signups">Sign Up</button>
+        <button class="logs"><a href="login.html">Log In</a></button><br><br>
+        <header>Sign Up for free</header>
+        <input id="firstname" type="name" placeholder="First name*">
+        <input id="lastname" type="name" placeholder="Last name*"><br><br>
+        <input id="inputs" type="email" placeholder="Email address* "><br><br>
+        <input id="pass" type="password" placeholder="set a password*"><br><br>
+        <button id="getstart" type="submit">GET STARTED</button>
+  </form>
+    <script>
+
+        var id = 0;
+        const signup =() => {
+            id++;
+            const firstname = document.getElementById("firstname").value;
+            const lastname = document.getElementById("lastname").value;
+            const email = document.getElementById("inputs").value;
+            const password = document.getElementById("pass").value;
+            const data = { firstname: firstname, lastname, email, password, id: id };
+            event.preventDefault();
+            console.log(data);
+
+            fetch("http://localhost:8080/add-user", {
+                method: "POST",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            }).then((Response) =>
+              
+                Response.text()
+            )
+                .then((f) => { console.log(f); alert(f) });
+
+
+        }
+
+
+
+    </script>
+</body>
+
+</html>

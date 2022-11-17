@@ -1,0 +1,174 @@
+form {
+  text-align: center;
+  width: 40%;
+  height: 90%;
+  background-color: darkslategray;
+  margin: auto;
+  margin-top: 30px;
+}
+
+body {
+  width: 95%;
+  height: 95vh;
+  background-color: grey;
+}
+header {
+  text-align: center;
+  color: white;
+  font-size: 40px;
+  position: relative;
+  top: 15px;
+}
+/* ******************login and signup********** */
+button {
+  width: 45%;
+  height: 8%;
+  margin-top: 46px;
+  position: relative;
+  left: 3px;
+  top: 3px;
+  background-color: rgb(35, 177, 94);
+  border: none;
+  color: white;
+}
+#demo {
+  position: fixed;
+  width: 55%;
+  height: 90%;
+  /* bottom: 0; */
+  background-color: rgba(0,0,0,0.5);
+  /* z-index: 2; */
+  cursor: pointer;
+  /* padding-top: 10%; */
+  margin-left: 22%;
+}
+.logs {
+  position: relative;
+  left: -4px;
+  background-color: grey;
+  border: none;
+}
+/* *****************Input tag ID******** */
+
+#firstname {
+  margin: 50px 0 0 3px;
+  height: 30px;
+  border: block;
+  font-size: 16px;
+  padding-left: 15px;
+  background-color: grey;
+  border: none;
+}
+#lastname {
+  margin: 50px 0 0 3px;
+  line-height: 30px;
+  font-size: 16px;
+  padding-left: 15px;
+  background-color: grey;
+  border: none;
+}
+/* ************Email address************* */
+#inputs {
+  width: 86%;
+  margin-top: 32px;
+  line-height: 30px;
+  font-size: 16px;
+  padding-left: 5px;
+  background-color: grey;
+  border: none;
+}
+/* ***************Set a password******* */
+#pass {
+  width: 86%;
+  margin-top: 25px;
+  line-height: 30px;
+  font-size: 16px;
+  padding-left: 5px;
+  background-color: grey;
+  border: none;
+}
+#confirmpass{
+  width: 86%;
+  margin-top: 25px;
+  margin-left: 47px;
+  line-height: 30px;
+  font-size: 16px;
+  padding-left: 5px;
+  background-color: grey;
+  border: none;
+  display:none;
+}
+#forgetpass{
+  display:none;
+  margin-left: 25%;
+}
+/* **************Get Started*************** */
+#getstart {
+  width: 88%;
+  height: 70px;
+  margin-top: 20px;
+  font-size: 40px;
+  border: none;
+}
+::placeholder {
+  color: white;
+}
+a {
+  color: white;
+  text-decoration: none;
+}
+
+
+
+
+
+@media screen and (max-width: 1000px) {
+  form {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  body {
+    background: yellow;
+  }
+  form {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
+
+
+/* th{
+  background-color: silver;
+}
+.usertable1{
+  
+  font-size: large;
+  text-align:center;
+  background-color: brown;
+  float:left;
+  margin-left: 26%;
+  display:flex;
+  padding:10px;
+  
+}
+.usertable2{
+  
+  font-size: large;
+  text-align:center;
+  background-color: brown;
+  float:left;
+  margin-left: 32%;
+  display:flex;
+  padding:10px;
+  
+}
+
+ a:hover {
+  background-color: #111;
+}
+.delete{
+  width:10%;
+} */

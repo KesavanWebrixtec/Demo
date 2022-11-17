@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Reviews</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='product.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+   
+</head>
+<body>
+    
+    <form >
+        
+       
+        <header></header><br>
+        
+        <div id="radio">
+        <input id="rate-1" type="radio" name="rate" value="1">
+        <label for="rate-1" class="fa fa-star"></label>
+        <input id="rate-2" type="radio" name="rate">
+        <label for="rate-2" class="fa fa-star"></label>
+        <input id="rate-3" type="radio" name="rate">
+        <label for="rate-3" class="fa fa-star"></label>
+        <input id="rate-4" type="radio" name="rate">
+        <label for="rate-4" class="fa fa-star"></label>
+        <input id="rate-5" type="radio" name="rate">
+        <label for="rate-5" class="fa fa-star"></label>
+        </div><br><br><br>
+        <input id="email" type="message" name="description" placeholder="your comment" required><br><br>
+        <!-- <input id="email1" type="number" name="starrating" placeholder="your rating" required><br><br> -->
+        <button onclick="signup()">review</button>
+
+    </form>
+
+<script>
+    var arr = [];
+    var same = 1;
+
+    fetch("http://localhost:8080/productget-user", {
+        method: "GET",
+
+    }).then((Response) => {
+        return Response.json()
+    }
+    )             
+        .then((e) => {
+            let tabledata = "";
+            arr = [];
+            for (let index = 0; index < e.length; index++) {
+                arr.push(e[index].id);
+
+                tabledata += `
+ <tr>
+    <td>${e[index].id}</td>
+    <td>${e[index].reviews}</td>
+    <td>${e[index].description}</td>
+    <td>${e[index].starrating}</td>
+   
+
+    </tr>
+`;
+
+            };
+
+
+
+            document.getElementById("table").innerHTML = tabledata;
+
+        });
+</script>
+</body>
+</html>

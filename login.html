@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Register page</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+
+</head>
+
+<body>
+
+
+    <form id="demo">
+        <button class="Signups"><a href="index.html">Sign Up</a></button>
+        <button class="logs">Log In</button><br><br>
+        <header id="sign">Sign in page</header><br><br>
+        <header id="read" style="display:none">forget page</header>
+        <input id="inputs" type="email" placeholder="Email address* "><br><br>
+        <input id="pass" type="password" placeholder="set a password*"><br><br>
+        <input id="confirmpass" type="password" placeholder="confirm password*"><br><br>
+        <button onclick="signup()" id="getstart">GET STARTED</button>
+        <button id="frgtpassword" onclick="wait()">Fogetpassword</button>
+        <button id="forgetpass" onclick="forgetpass()"> change</button>
+    </form>
+
+
+
+
+    <script>
+
+        // const myfunction =()=>{
+
+        //     console.log("hello world");
+        //     var array1=[1,2,3,4,5]
+        //      var array=[{id:1,email:"email",name:"kesavan"},{id:2,email:"fffff"},{id:3,email:"eeeeee"},{id:4,email:"one"},{id:5,email:"@gmail"}]
+        //      console.log(array[0].name)
+        // } 
+        function signup() {
+
+
+            const email = document.getElementById("inputs").value;
+            const password = document.getElementById("pass").value;
+            const data = { property: email, password, };
+            event.preventDefault();
+            console.log(data);
+
+            fetch("http://localhost:8080/get-user", {
+                method: "GET",
+
+
+            }).then((Response) => {
+
+                return Response.json()
+            }
+            )
+
+                .then((a) => {
+                    console.log(a);
+
+                    let value = 0;
+                    for (let num = 0; num < a.length; num++) {
+
+                        if (email == a[num].email) {
+                            if (password == a[num].password) {
+
+
+                                alert("login success");
+                                window.location.href = "http://127.0.0.1:5500/table.html";
+                                break;
+                            }
+                            else {
+                                alert("bad credential");
+                                break;
+                            }
+                        }
+                        value++;
+                        if (a.length == value) {
+                            alert("email is wrong")
+                        }
+                        document.getElementById('demo').style.display = 'none';
+                    }
+                });
+
+
+        }
+
+        function forgetpass() {
+
+
+
+            const email = document.getElementById("inputs").value;
+            const password = document.getElementById("pass").value;
+            const confirm = document.getElementById("confirmpass").value
+            const name = { email: email, password: password, confirm:confirm};
+            event.preventDefault();
+            console.log(name);
+            if (password == confirm) {
+            fetch("http://localhost:8080/forget-user", {
+
+                method: "PUT",
+                body: JSON.stringify(name),
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type": "application/json",
+                },
+            }).then((Response) => Response.text()
+            )
+                .then((e) => {
+
+                    console.log(e); window.alert(e);
+                })
+        }
+
+            else {
+                console.log("given same password on both new and confirm");
+                alert("given same password on both new and confirm");
+            }
+
+        }
+
+    
+
+         function wait(){
+document.getElementById('confirmpass').style.display='block';
+document.getElementById('getstart').style.display='none';
+document.getElementById('forgetpass').style.display='block';
+document.getElementById('frgtpassword').style.display='none';
+document.getElementById('sign').style.display='none';
+document.getElementById('read').style.display='block';
+event.preventDefault();
+         }
+        
+    </script>
+
+</body>
+
+</html>
